@@ -1,0 +1,44 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    # ingress.gcp.kubernetes.io/pre-shared-cert: sofa-shop-certificate
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+  name: demo-shop-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: sofa-shop-nodejs.mysql.devclient03.getanton.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: inventory
+            port:
+              number: 80
+        path: /api/inventory
+        pathType: Prefix
+      - backend:
+          service:
+            name: order
+            port:
+              number: 80
+        path: /api/order
+        pathType: Prefix
+      - backend:
+          service:
+            name: product
+            port:
+              number: 80
+        path: /api/product
+        pathType: Prefix
+      - backend:
+          service:
+            name: demo-shop-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix

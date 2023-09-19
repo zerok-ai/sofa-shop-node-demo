@@ -1,0 +1,4 @@
+namespace: sofa-shop-nodejs
+resources:
+  - ./ingress.yaml
+  - ./managedCertificate.yaml

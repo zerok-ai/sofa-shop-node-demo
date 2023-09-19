@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  db_url_params: "${DB_URL_PARAMS}"
+  db_driver_type: "${DB_DRIVER_TYPE}"
+  db_hibernate_dialect: "${DB_HIBERNATE_DIALECT}"
+  db_print_sql: "${DB_PRINT_SQL}"
+  db_driver_class: "${DB_DRIVER_CLASS}"
+  host: "${DB_HOST}"
+  dbName: inventoryservice
+  productServiceURL: product.${NAMESPACE}.svc.cluster.local
+  inventoryServiceURL: inventory.${NAMESPACE}.svc.cluster.local
+kind: ConfigMap
+metadata:
+  name: inventory-app-configmap

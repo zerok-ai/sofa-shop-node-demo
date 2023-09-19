@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product
+  labels:
+    app: product
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product
+  template:
+    metadata:
+      labels:
+        app: product
+    spec:
+      containers:
+        - name: product
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          image: us-west1-docker.pkg.dev/zerok-dev/sofa-shop-nodejs/product:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env: # Setting Enviornmental Variables
+            - name: DB_URL_PARAMS   # Setting Database host address from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: product-app-configmap
+                  key: db_url_params
+
+            - name: DB_DRIVER_TYPE   # Setting Database host address from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: product-app-configmap
+                  key: db_driver_type
+
+            - name: DB_HIBERNATE_DIALECT   # Setting Database host address from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: product-app-configmap
+                  key: db_hibernate_dialect
+
+            - name: DB_PRINT_SQL   # Setting Database host address from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: product-app-configmap
+                  key: db_print_sql
+
+            - name: DB_DRIVER_CLASS   # Setting Database host address from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: product-app-configmap
+                  key: db_driver_class
+                  
+            - name: DB_HOST   # Setting Database host address from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: product-app-configmap
+                  key: host
+
+            - name: DB_NAME  # Setting PRODUCT Database name from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: product-app-configmap
+                  key: dbName
+
+            - name: DB_USERNAME  # Setting Database username from Secret
+              valueFrom:
+                secretKeyRef:
+                  name: product-db-secrets
+                  key: username
+
+            - name: DB_PASSWORD # Setting Database password from Secret
+              valueFrom:
+                secretKeyRef:
+                  name: product-db-secrets
+                  key: password
+
+            - name: AVAILABILITY_HOST  # Setting order service url from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: product-app-configmap
+                  key: availabilityServiceURL
+

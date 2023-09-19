@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  db_url_params: ""
+  db_driver_type: ""
+  db_hibernate_dialect: ""
+  db_print_sql: ""
+  db_driver_class: ""
+  host: "mysql-svc.mysql.svc.cluster.local"
+  dbName: inventoryservice
+  productServiceURL: product.sofa-shop-nodejs.svc.cluster.local
+  inventoryServiceURL: inventory.sofa-shop-nodejs.svc.cluster.local
+kind: ConfigMap
+metadata:
+  name: inventory-app-configmap

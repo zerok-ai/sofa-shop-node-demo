@@ -1,0 +1,7 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: sofa-shop-certificate
+spec:
+  domains:
+    - sofa-shop-nodejs.mysql.devclient03.getanton.com
